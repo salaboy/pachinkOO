@@ -142,10 +142,15 @@ public class SimpleReteTest {
         //Let's use the network
 
         wm.insert(new Person("Salaboy"));
-        
         //Nothing happens until here.. let's add another Fact
+        assertEquals(0, wm.getAgenda().size());
+        
         
         wm.insert(new Address("nowhere"));
+        assertEquals(1, wm.getAgenda().size());
+        
+        int fired = wm.fireAllRules();
+        assertEquals(1, fired);
         
     }
     
