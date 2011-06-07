@@ -1,0 +1,3 @@
+PachinkOO is a very basic implementation of the RETEOO algorithm proposed by the Drools Project (www.drools.org) that it's based on the RETE algorithm created by Charles Forgy. This implementation focus is to have a simple java project to be able to play and explain how the RETEOO algorithm works inside Drools.
+For more information about this project please go here:
+http://salaboy.wordpress.com/2011/06/07/pachinkoo-object-oriented-rete-for-educational-purposes/
