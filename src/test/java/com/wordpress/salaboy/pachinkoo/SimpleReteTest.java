@@ -41,15 +41,25 @@ public class SimpleReteTest {
     public void simpleReteTest() {
         WorkingMemory wm = new WorkingMemoryImpl();
         Rete rete = wm.getRete();
-        ObjectTypeNode objectTypeNode = new ObjectTypeNode("com.wordpress.salaboy.myrete.Person");
-        objectTypeNode.addObjectSink(new AlphaNode(COMPARATOR.EQUAL, "Name", "Salaboy"));
-        rete.addObjectSink(objectTypeNode);
-
-        rete.assertFact(new Person("Salaboy"));
-
         
-
-
+        // network
+        ObjectTypeNode objectTypeNode = new ObjectTypeNode(Person.class.getCanonicalName());
+        AlphaNode alphaNode = new AlphaNode(COMPARATOR.EQUAL, "Name", "Salaboy");
+        LeftInputAdapterNode leftInputAdapter = new LeftInputAdapterNode();
+        RuleTerminalNode terminalNode = new RuleTerminalNode("matches a person and execute an action", new Action() {
+            public void execute(Tuple tuple, PropagationContext context) {
+                // no action
+            }
+        });
+        
+		objectTypeNode.addObjectSink(alphaNode);
+        alphaNode.addObjectSink(leftInputAdapter);
+        leftInputAdapter.addTupleSink(terminalNode);
+        rete.addObjectSink(objectTypeNode);
+        
+        // assert and verify agenda (no firing...)
+        rete.assertFact(new Person("Salaboy"));
+        assertEquals(1, wm.getAgenda().size());
     }
 
     @Test
@@ -61,7 +71,7 @@ public class SimpleReteTest {
         Rete rete = wm.getRete();
 
         //Create one Object Type Node: Person()
-        ObjectTypeNode objectTypeNode = new ObjectTypeNode("com.wordpress.salaboy.pachinkoo.Person");
+        ObjectTypeNode objectTypeNode = new ObjectTypeNode(Person.class.getCanonicalName());
         //Create one AlpaNode for Person(name == "Salaboy")
         AlphaNode alphaNode = new AlphaNode(COMPARATOR.EQUAL, "Name", "Salaboy");
         objectTypeNode.addObjectSink(alphaNode);
@@ -103,7 +113,7 @@ public class SimpleReteTest {
         Rete rete = wm.getRete();
 
         //Create one Object Type Node: Person()
-        ObjectTypeNode objectTypeNode = new ObjectTypeNode("com.wordpress.salaboy.pachinkoo.Person");
+        ObjectTypeNode objectTypeNode = new ObjectTypeNode(Person.class.getCanonicalName());
         //Create one AlpaNode for Person(name == "Salaboy")
         AlphaNode alphaNode = new AlphaNode(COMPARATOR.EQUAL, "Name", "Salaboy");
         objectTypeNode.addObjectSink(alphaNode);
@@ -127,7 +137,7 @@ public class SimpleReteTest {
         
         
         //Create one Object Type Node: Address()
-        objectTypeNode = new ObjectTypeNode("com.wordpress.salaboy.myrete.Address");
+        objectTypeNode = new ObjectTypeNode(Address.class.getCanonicalName());
         //Create one AlpaNode for Address(addressLine1 == "nowhere")
         alphaNode = new AlphaNode(COMPARATOR.EQUAL, "AddressLine1", "nowhere");
         objectTypeNode.addObjectSink(alphaNode);
