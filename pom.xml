@@ -12,6 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jung.version>2.0.1</jung.version>
 		<junit.version>4.8.1</junit.version>
 	</properties>
      
@@ -21,6 +22,22 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+                <groupId>net.sf.jung</groupId>
+                <artifactId>jung2</artifactId>
+                <version>2.0.1</version>
+                <type>pom</type>                 
+        </dependency>
+		<dependency>
+        <groupId>net.sf.jung</groupId>
+            <artifactId>jung-graph-impl</artifactId>
+            <version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.collections</groupId>
+			<artifactId>collections-generic</artifactId>
+			<version>4.01</version>
 		</dependency>
 	</dependencies>
       
